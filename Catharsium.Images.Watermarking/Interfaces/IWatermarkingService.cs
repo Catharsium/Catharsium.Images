@@ -1,9 +1,9 @@
 ﻿using Catharsium.Images.Watermarking.Models;
-using System.Drawing;
+using Catharsium.Util.IO.Files.Interfaces;
 
 namespace Catharsium.Images.Watermarking.Interfaces;
 
 public interface IWatermarkingService<T>
 {
-    Bitmap ApplyTo(Bitmap picture, WatermarkRequest<T> request);
+    void ApplyTo<T>(IFile sourceImage, IFile targetImage, IEnumerable<WatermarkRequest<IFile>> watermarks);
 }

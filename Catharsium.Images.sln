@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catharsium.Images.ConsoleAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catharsium.Images.Watermarking", "Catharsium.Images.Watermarking\Catharsium.Images.Watermarking.csproj", "{017E87F3-B064-4322-AE01-BF34D4340B53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catharsium.Images.ConsoleApp.Tests", "Catharsium.Images.ConsoleApp.Tests\Catharsium.Images.ConsoleApp.Tests.csproj", "{C1427ACC-C967-4AFC-BA52-913720AD3806}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catharsium.Images.Watermarking.Tests", "Catharsium.Images.Watermarking.Tests\Catharsium.Images.Watermarking.Tests.csproj", "{C75AC340-376B-4FB7-BD34-B0E12DB1025E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{017E87F3-B064-4322-AE01-BF34D4340B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{017E87F3-B064-4322-AE01-BF34D4340B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{017E87F3-B064-4322-AE01-BF34D4340B53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1427ACC-C967-4AFC-BA52-913720AD3806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1427ACC-C967-4AFC-BA52-913720AD3806}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1427ACC-C967-4AFC-BA52-913720AD3806}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1427ACC-C967-4AFC-BA52-913720AD3806}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C75AC340-376B-4FB7-BD34-B0E12DB1025E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C75AC340-376B-4FB7-BD34-B0E12DB1025E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C75AC340-376B-4FB7-BD34-B0E12DB1025E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C75AC340-376B-4FB7-BD34-B0E12DB1025E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

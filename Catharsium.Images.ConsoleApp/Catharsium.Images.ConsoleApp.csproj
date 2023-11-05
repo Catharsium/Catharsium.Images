@@ -25,9 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="Catharsium.Util.IO.Console" Version="2023.6.19.54" />
-    <PackageReference Include="Catharsium.Util.IO.Files" Version="2023.6.19.54" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

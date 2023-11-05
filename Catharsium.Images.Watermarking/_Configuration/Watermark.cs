@@ -4,7 +4,7 @@ namespace Catharsium.Images.Watermarking._Configuration;
 
 public class Watermark
 {
-    public required string Source { get; set; }
+    public required string Mark { get; set; }
     public double Scale { get; set; }
     public Anchor Anchor { get; set; }
     public double OffsetX { get; set; }

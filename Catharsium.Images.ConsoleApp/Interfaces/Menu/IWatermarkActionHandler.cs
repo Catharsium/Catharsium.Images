@@ -2,6 +2,6 @@
 
 namespace Catharsium.Watermarker.Interfaces.Menu;
 
-public interface IApplyActionHandler : IActionHandler
+public interface IWatermarkActionHandler : IActionHandler
 {
 }
