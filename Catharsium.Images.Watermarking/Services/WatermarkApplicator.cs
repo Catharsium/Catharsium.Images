@@ -40,19 +40,30 @@ public class WatermarkApplicator : IWatermarkApplicator
             }
 
             if (this.settings.ImageWatermarks != null) {
-                this.imageWatermarkingService.ApplyTo<IFile>(sourceFile, outputFile, this.settings.ImageWatermarks.Select(this.MapWatermark));
+                this.imageWatermarkingService.ApplyTo<IFile>(sourceFile, outputFile, this.settings.ImageWatermarks.Select(this.MapToImageWatermark));
             }
 
             if (this.settings.TextWatermarks != null) {
-                this.textWatermarkingService.ApplyTo<string>(outputFile, outputFile, this.settings.TextWatermarks.Select(this.MapWatermark));
+                this.textWatermarkingService.ApplyTo<string>(outputFile, outputFile, this.settings.TextWatermarks.Select(this.MapToTextWatermark));
             }
         }
     }
 
 
-    private WatermarkRequest<IFile> MapWatermark(Watermark w) {
+    private WatermarkRequest<IFile> MapToImageWatermark(Watermark w) {
         return new WatermarkRequest<IFile> {
-            Watermark = this.fileFactory.CreateFile(w.Mark),
+            Mark = this.fileFactory.CreateFile(w.Mark),
+            Scale = w.Scale,
+            Anchor = w.Anchor,
+            OffsetX = w.OffsetX,
+            OffsetY = w.OffsetY
+        };
+    }
+
+
+    private WatermarkRequest<string> MapToTextWatermark(Watermark w) {
+        return new WatermarkRequest<string> {
+            Mark = w.Mark,
             Scale = w.Scale,
             Anchor = w.Anchor,
             OffsetX = w.OffsetX,
