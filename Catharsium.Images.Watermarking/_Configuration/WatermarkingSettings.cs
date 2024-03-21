@@ -2,7 +2,6 @@
 
 public class WatermarkingSettings
 {
-    public bool OverrideInputFiles { get; set; }
-    public Watermark[] ImageWatermarks { get; set; }
-    public Watermark[] TextWatermarks { get; set; }
+    public WatermarkSet DefaultSet { get; set; }
+    public WatermarkSet[] Sets { get; set; }
 }

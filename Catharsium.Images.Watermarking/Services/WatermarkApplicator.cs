@@ -26,11 +26,12 @@ public class WatermarkApplicator : IWatermarkApplicator
 
 
     public void Apply(string[] files) {
+        var watermarkSet = this.GetWatermarkSet(files[0]);
         foreach (var file in files) {
             var sourceFile = this.fileFactory.CreateFile(file);
             var outputFile = sourceFile;
 
-            if (!this.settings.OverrideInputFiles) {
+            if (!watermarkSet.OverrideInputFiles) {
                 var folder = this.fileFactory.CreateDirectory(Path.Combine(sourceFile.Directory.FullName, "Watermarked"));
                 if (!folder.Exists) {
                     folder.Create();
@@ -39,14 +40,20 @@ public class WatermarkApplicator : IWatermarkApplicator
                 outputFile = this.fileFactory.CreateFile(Path.Combine(folder.FullName, sourceFile.Name));
             }
 
-            if (this.settings.ImageWatermarks != null) {
-                this.imageWatermarkingService.ApplyTo<IFile>(sourceFile, outputFile, this.settings.ImageWatermarks.Select(this.MapToImageWatermark));
+            if (watermarkSet.ImageWatermarks != null) {
+                this.imageWatermarkingService.ApplyTo(sourceFile, outputFile, watermarkSet.ImageWatermarks.Select(this.MapToImageWatermark));
             }
 
-            if (this.settings.TextWatermarks != null) {
-                this.textWatermarkingService.ApplyTo<string>(outputFile, outputFile, this.settings.TextWatermarks.Select(this.MapToTextWatermark));
+            if (watermarkSet.TextWatermarks != null) {
+                this.textWatermarkingService.ApplyTo(outputFile, outputFile, watermarkSet.TextWatermarks.Select(this.MapToTextWatermark));
             }
         }
+    }
+
+
+    private WatermarkSet GetWatermarkSet(string file) {
+        var result = this.settings.Sets.FirstOrDefault(s => file.Contains($"[{s.Name}]"));
+        return result ??= this.settings.DefaultSet;
     }
 
 
