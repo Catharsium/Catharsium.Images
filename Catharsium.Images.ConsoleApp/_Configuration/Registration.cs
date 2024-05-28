@@ -1,4 +1,6 @@
 ﻿using Catharsium.Images.ConsoleApp._Configuration;
+using Catharsium.Images.ConsoleApp.Interfaces.Menu;
+using Catharsium.Images.ConsoleApp.Menu.Metadata;
 using Catharsium.Images.Watermarking._Configuration;
 using Catharsium.Util.Configuration.Extensions;
 using Catharsium.Util.IO.Console._Configuration;
@@ -20,6 +22,9 @@ public static class Registration
             .AddImagesWatermarking(config)
 
             .AddScoped<IMenuActionHandler, WatermarkMenu>()
-            .AddScoped<IWatermarkActionHandler, AddAction>();
+            .AddScoped<IWatermarkActionHandler, AddAction>()
+
+            .AddScoped<IMenuActionHandler, MetadataMenu>()
+            .AddScoped<IMetadataActionHandler, ReadMetadataAction>();
     }
 }
