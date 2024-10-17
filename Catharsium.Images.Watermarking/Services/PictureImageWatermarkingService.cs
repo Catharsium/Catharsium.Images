@@ -14,15 +14,29 @@ public class PictureImageWatermarkingService : WatermarkingService<IFile>
         using var watermarkBitmap = new Bitmap((request.Mark as IFile).OpenRead());
         var watermarkWidth = (int)(picture.Width * request.Scale);
         var watermarkHeight = (int)(watermarkWidth / (double)watermarkBitmap.Width * watermarkBitmap.Height);
-        if (picture.Height > picture.Width) {
+        if(picture.Height > picture.Width) {
             var factor = picture.Height / (double)picture.Width;
             watermarkWidth = (int)(watermarkWidth * factor);
             watermarkHeight = (int)(watermarkHeight * factor);
         }
 
-        (var x, var y) = Position.GetCoordinates(request.Anchor, picture.Width, picture.Height, watermarkWidth, watermarkHeight, request.OffsetX, request.OffsetY);
+        var width = picture.Width + this.LimitsX[request.Anchor];
+        var height = picture.Height + this.LimitsY[request.Anchor];
+        (var x, var y) = Position.GetCoordinates(request.Anchor, width, height, watermarkWidth, watermarkHeight, request.OffsetX, request.OffsetY);
+        if(request.Flow == FlowDirection.Left) {
+            this.LimitsX[request.Anchor] -= width - x;
+        }
+        if(request.Flow == FlowDirection.Right) {
+            this.LimitsX[request.Anchor] += width - x;
+        }
+        if(request.Flow == FlowDirection.Up) {
+            this.LimitsY[request.Anchor] -= height - y;
+        }
+        if(request.Flow == FlowDirection.Down) {
+            this.LimitsY[request.Anchor] += height - y;
+        }
 
-        using (var g = Graphics.FromImage(picture)) {
+        using(var g = Graphics.FromImage(picture)) {
             var attributes = new ImageAttributes();
             var colorMatrix = ColorHelper.GetColorMatrix(useGrayScale);
             attributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);

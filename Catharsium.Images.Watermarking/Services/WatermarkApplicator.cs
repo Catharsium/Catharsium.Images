@@ -27,24 +27,24 @@ public class WatermarkApplicator : IWatermarkApplicator
 
     public void Apply(string[] files) {
         var watermarkSet = this.GetWatermarkSet(files[0]);
-        foreach (var file in files) {
+        foreach(var file in files) {
             var sourceFile = this.fileFactory.CreateFile(file);
             var outputFile = sourceFile;
 
-            if (!watermarkSet.OverrideInputFiles) {
-                var folder = this.fileFactory.CreateDirectory(Path.Combine(sourceFile.Directory.FullName, "Watermarked"));
-                if (!folder.Exists) {
+            if(!watermarkSet.OverrideInputFiles) {
+                var folder = this.fileFactory.CreateDirectory(Path.Combine(sourceFile.Directory.FullName, "[Logo]"));
+                if(!folder.Exists) {
                     folder.Create();
                 }
 
                 outputFile = this.fileFactory.CreateFile(Path.Combine(folder.FullName, sourceFile.Name));
             }
 
-            if (watermarkSet.ImageWatermarks != null) {
+            if(watermarkSet.ImageWatermarks != null) {
                 this.imageWatermarkingService.ApplyTo(sourceFile, outputFile, watermarkSet.ImageWatermarks.Select(this.MapToImageWatermark));
             }
 
-            if (watermarkSet.TextWatermarks != null) {
+            if(watermarkSet.TextWatermarks != null) {
                 this.textWatermarkingService.ApplyTo(outputFile, outputFile, watermarkSet.TextWatermarks.Select(this.MapToTextWatermark));
             }
         }
@@ -62,6 +62,7 @@ public class WatermarkApplicator : IWatermarkApplicator
             Mark = this.fileFactory.CreateFile(w.Mark),
             Scale = w.Scale,
             Anchor = w.Anchor,
+            Flow = w.Flow,
             OffsetX = w.OffsetX,
             OffsetY = w.OffsetY
         };
@@ -73,6 +74,7 @@ public class WatermarkApplicator : IWatermarkApplicator
             Mark = w.Mark,
             Scale = w.Scale,
             Anchor = w.Anchor,
+            Flow = w.Flow,
             OffsetX = w.OffsetX,
             OffsetY = w.OffsetY
         };
