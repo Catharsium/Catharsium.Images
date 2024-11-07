@@ -2,6 +2,8 @@
 using Catharsium.Images.Watermarking.Interfaces;
 using Catharsium.Images.Watermarking.Models;
 using Catharsium.Util.IO.Files.Interfaces;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Iptc;
 
 namespace Catharsium.Images.Watermarking.Services;
 
@@ -26,11 +28,11 @@ public class WatermarkApplicator : IWatermarkApplicator
 
 
     public void Apply(string[] files) {
-        var watermarkSet = this.GetWatermarkSet(files[0]);
         foreach(var file in files) {
             var sourceFile = this.fileFactory.CreateFile(file);
             var outputFile = sourceFile;
 
+            var watermarkSet = this.GetWatermarkSet(sourceFile);
             if(!watermarkSet.OverrideInputFiles) {
                 var folder = this.fileFactory.CreateDirectory(Path.Combine(sourceFile.Directory.FullName, "[Logo]"));
                 if(!folder.Exists) {
@@ -51,9 +53,19 @@ public class WatermarkApplicator : IWatermarkApplicator
     }
 
 
-    private WatermarkSet GetWatermarkSet(string file) {
-        var result = this.settings.Sets.FirstOrDefault(s => file.Contains($"[{s.Name}]"));
-        return result ??= this.settings.DefaultSet;
+    private WatermarkSet GetWatermarkSet(IFile file) {
+        IEnumerable<MetadataExtractor.Directory> directories = ImageMetadataReader.ReadMetadata(file.FullName);
+        var iptcDirectory = directories.OfType<IptcDirectory>().FirstOrDefault();
+        var keywords = iptcDirectory?.GetDescription(IptcDirectory.TagKeywords)?.Split(';');
+
+        foreach(var keyword in keywords) {
+            var result = this.settings.Sets.FirstOrDefault(s => s.Name == keyword);
+            if(result != null) {
+                return result;
+            }
+        }
+
+        return this.settings.DefaultSet;
     }
 
 

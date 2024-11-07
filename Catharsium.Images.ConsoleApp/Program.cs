@@ -19,10 +19,10 @@ public class Program
             .BuildServiceProvider();
 
         var files = args;
-        files = new[] {
-            "D:\\Onedrive\\Portfolio\\EPBF\\2024-06-23 10-01-58,  [EPBF 2024].jpg",
-            "D:\\Onedrive\\Portfolio\\EPBF\\2024-06-23 10-06-12,  [EPBF 2024].jpg"
-        };
+        //files = new[] {
+        //    "D:\\Onedrive\\test nk.jpg",
+        //    "D:\\Onedrive\\epbf 2024.jpg"
+        //};
 
         if(files.Any()) {
             var actionHandler = serviceProvider.GetService<IWatermarkApplicator>();
