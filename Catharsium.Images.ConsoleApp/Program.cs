@@ -1,10 +1,12 @@
-﻿using Catharsium.Images.Watermarking.Interfaces;
+﻿using Catharsium.Images.ConsoleApp._Configuration;
+using Catharsium.Images.Watermarking.Interfaces;
+using Catharsium.Util.IO.Console.Interfaces;
 using Catharsium.Util.IO.Console.Menu.Interfaces;
-using Catharsium.Watermarker._Configuration;
+using Catharsium.Util.IO.Files.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Catharsium.Watermarker;
+namespace Catharsium.Images.ConsoleApp;
 
 public class Program
 {
@@ -19,12 +21,12 @@ public class Program
             .BuildServiceProvider();
 
         var files = args;
-        //files = new[] {
-        //    "D:\\Onedrive\\test nk.jpg",
-        //    "D:\\Onedrive\\epbf 2024.jpg"
-        //};
+        if(files.Length == 0) {
+            var folder = serviceProvider.GetService<IFileFactory>().CreateDirectory("D:\\Onedrive\\Portfolio\\_Export\\Test");
+            files = [.. folder.GetFiles().Select(f => f.FullName)];
+        }
 
-        if(files.Any()) {
+        if(files.Length != 0) {
             var actionHandler = serviceProvider.GetService<IWatermarkApplicator>();
             actionHandler.Apply(files);
         }
@@ -32,5 +34,7 @@ public class Program
             var mainMenuActionHandler = serviceProvider.GetService<IMainMenuActionHandler>();
             await mainMenuActionHandler.Run();
         }
+
+        serviceProvider.GetService<IConsole>().ReadLine();
     }
 }

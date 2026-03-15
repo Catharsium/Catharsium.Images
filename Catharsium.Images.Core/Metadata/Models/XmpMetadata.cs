@@ -1,4 +1,4 @@
-﻿namespace Catharsium.Images.Watermarking.MetaData;
+﻿namespace Catharsium.Images.Core.Metadata.Models;
 
 public class XmpMetadata
 {

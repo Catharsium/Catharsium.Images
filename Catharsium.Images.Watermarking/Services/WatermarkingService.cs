@@ -1,9 +1,7 @@
 ﻿using Catharsium.Images.Watermarking.Interfaces;
 using Catharsium.Images.Watermarking.Models;
 using Catharsium.Util.IO.Files.Interfaces;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.Drawing.Imaging;
+using SkiaSharp;
 
 namespace Catharsium.Images.Watermarking.Services;
 
@@ -40,21 +38,60 @@ public abstract class WatermarkingService<T> : IWatermarkingService<T>
     }
 
 
-    [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
-    public void ApplyTo<T>(IFile sourceImage, IFile targetImage, IEnumerable<WatermarkRequest<T>> watermarks) {
+    //[SuppressMessage("Interoperability", "CA1416:Validate p}atform compatibility", Justification = "<Pending>")]
+    //public void ApplyTo<T>(IFile sourceImage, IFile targetImage, bool isGrayScale, IEnumerable<WatermarkRequest<T>> watermarksLandscape, IEnumerable<WatermarkRequest<T>> watermarksPortrait) {
+    //    this.InitLimits();
+    //    Bitmap outputImage;
+    //    using(var stream = sourceImage.OpenRead()) {
+    //        using var image = new Bitmap(stream);
+    //        outputImage = (Bitmap)image.Clone();
+    //    }
+
+    //    var watermarks = watermarksLandscape;
+    //    if(outputImage.Width < outputImage.Height && watermarksPortrait != null && watermarksPortrait.Any()) {
+    //        watermarks = watermarksPortrait;
+    //    }
+
+    //    foreach(var watermark in watermarks) {
+    //        outputImage = this.ApplyTo(outputImage, watermark, isGrayScale);
+    //    }
+
+    //    outputImage.Save(targetImage.FullName, ImageFormat.Jpeg);
+    //}
+
+
+    public void ApplyTo<T>(
+    IFile sourceImage,
+    IFile targetImage,
+    bool isGrayScale,
+    IEnumerable<WatermarkRequest<T>> watermarksLandscape,
+    IEnumerable<WatermarkRequest<T>> watermarksPortrait)
+    {
         this.InitLimits();
-        Bitmap outputImage;
-        using(var image = new Bitmap(sourceImage.OpenRead())) {
-            outputImage = (Bitmap)image.Clone();
+
+        using var sourceStream = sourceImage.OpenRead();
+        using var bitmap = SKBitmap.Decode(sourceStream);
+
+        var watermarks = watermarksLandscape;
+
+        if (bitmap.Width < bitmap.Height &&
+            watermarksPortrait != null &&
+            watermarksPortrait.Any())
+        {
+            watermarks = watermarksPortrait;
         }
 
-        foreach(var watermark in watermarks) {
-            outputImage = this.ApplyTo(outputImage, watermark, sourceImage.Name.Contains("[bw]"));
+        foreach (var watermark in watermarks)
+        {
+            ApplyTo(bitmap, watermark, isGrayScale);
         }
 
-        outputImage.Save(targetImage.FullName, ImageFormat.Jpeg);
+        using var image = SKImage.FromBitmap(bitmap);
+        using var data = image.Encode(SKEncodedImageFormat.Jpeg, 90);
+
+        using var outputStream = File.OpenWrite(targetImage.FullName);
+        data.SaveTo(outputStream);
     }
 
-
-    public abstract Bitmap ApplyTo<T>(Bitmap picture, WatermarkRequest<T> request, bool useGrayScale);
+    public abstract SKBitmap ApplyTo<T>(SKBitmap picture, WatermarkRequest<T> request, bool useGrayScale);
 }

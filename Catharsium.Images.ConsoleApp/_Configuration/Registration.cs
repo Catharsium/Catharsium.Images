@@ -1,5 +1,4 @@
-﻿using Catharsium.Images.ConsoleApp._Configuration;
-using Catharsium.Images.ConsoleApp.Interfaces.Menu;
+﻿using Catharsium.Images.ConsoleApp.Interfaces.Menu;
 using Catharsium.Images.ConsoleApp.Menu.Metadata;
 using Catharsium.Images.Watermarking._Configuration;
 using Catharsium.Util.Configuration.Extensions;
@@ -10,7 +9,7 @@ using Catharsium.Watermarker.Menu.Apply;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Catharsium.Watermarker._Configuration;
+namespace Catharsium.Images.ConsoleApp._Configuration;
 
 public static class Registration
 {

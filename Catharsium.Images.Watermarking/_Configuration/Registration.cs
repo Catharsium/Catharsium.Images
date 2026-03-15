@@ -1,6 +1,8 @@
-﻿using Catharsium.Images.Watermarking.Interfaces;
+﻿using Catharsium.Images.Core._Configuration;
+using Catharsium.Images.Watermarking.Interfaces;
 using Catharsium.Images.Watermarking.Services;
 using Catharsium.Util.Configuration.Extensions;
+using Catharsium.Util.IO.Console._Configuration;
 using Catharsium.Util.IO.Files._Configuration;
 using Catharsium.Util.IO.Files.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +16,9 @@ public static class Registration
         var configuration = config.Load<WatermarkingSettings>();
         return services.AddSingleton<WatermarkingSettings, WatermarkingSettings>(provider => configuration)
             .AddFilesIoUtilities(config)
+            .AddConsoleIoUtilities(config)
+
+            .AddImagesCore(config)
 
             .AddScoped<IWatermarkApplicator, WatermarkApplicator>()
 

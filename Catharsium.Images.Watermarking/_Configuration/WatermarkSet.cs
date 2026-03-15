@@ -3,7 +3,6 @@
 public class WatermarkSet
 {
     public string Name { get; set; }
-    public bool OverrideInputFiles { get; set; }
-    public Watermark[] ImageWatermarks { get; set; }
-    public Watermark[] TextWatermarks { get; set; }
+    public List<Watermark> Watermarks { get; set; }
+    public List<Watermark> WatermarksPortrait { get; set; }
 }

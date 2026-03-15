@@ -7,9 +7,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catharsium.Images.ConsoleAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catharsium.Images.Watermarking", "Catharsium.Images.Watermarking\Catharsium.Images.Watermarking.csproj", "{017E87F3-B064-4322-AE01-BF34D4340B53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catharsium.Images.ConsoleApp.Tests", "Catharsium.Images.ConsoleApp.Tests\Catharsium.Images.ConsoleApp.Tests.csproj", "{C1427ACC-C967-4AFC-BA52-913720AD3806}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catharsium.Images.ConsoleApp.Tests", "Catharsium.Images.ConsoleApp.Tests\Catharsium.Images.ConsoleApp.Tests.csproj", "{C1427ACC-C967-4AFC-BA52-913720AD3806}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catharsium.Images.Watermarking.Tests", "Catharsium.Images.Watermarking.Tests\Catharsium.Images.Watermarking.Tests.csproj", "{C75AC340-376B-4FB7-BD34-B0E12DB1025E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catharsium.Images.Watermarking.Tests", "Catharsium.Images.Watermarking.Tests\Catharsium.Images.Watermarking.Tests.csproj", "{C75AC340-376B-4FB7-BD34-B0E12DB1025E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catharsium.Images.Core", "Catharsium.Images.Core\Catharsium.Images.Core.csproj", "{157C1416-B285-4BF7-81A3-6113DC16D7AA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catharsium.Images.Core.Tests", "Catharsium.Images.Core.Tests\Catharsium.Images.Core.Tests.csproj", "{D33D7A75-A55D-4D17-865A-D12AF47D503F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13E46245-59BC-47B8-9173-F32839C7259D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Published\Catharsium.Images\appsettings.json = ..\..\Published\Catharsium.Images\appsettings.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +42,14 @@ Global
 		{C75AC340-376B-4FB7-BD34-B0E12DB1025E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C75AC340-376B-4FB7-BD34-B0E12DB1025E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C75AC340-376B-4FB7-BD34-B0E12DB1025E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{157C1416-B285-4BF7-81A3-6113DC16D7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{157C1416-B285-4BF7-81A3-6113DC16D7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{157C1416-B285-4BF7-81A3-6113DC16D7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{157C1416-B285-4BF7-81A3-6113DC16D7AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D33D7A75-A55D-4D17-865A-D12AF47D503F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D33D7A75-A55D-4D17-865A-D12AF47D503F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D33D7A75-A55D-4D17-865A-D12AF47D503F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D33D7A75-A55D-4D17-865A-D12AF47D503F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
