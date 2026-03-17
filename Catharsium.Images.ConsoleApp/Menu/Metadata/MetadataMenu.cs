@@ -4,9 +4,7 @@ using Catharsium.Util.IO.Console.Menu.Base;
 
 namespace Catharsium.Images.ConsoleApp.Menu.Metadata;
 
-public class MetadataMenu : BaseMenuActionHandler<IMetadataActionHandler>
+public class MetadataMenu(IEnumerable<IMetadataActionHandler> actionHandlers, IConsole console) 
+    : BaseMenuActionHandler<IMetadataActionHandler>(actionHandlers, console, "Metadata")
 {
-    public MetadataMenu(IEnumerable<IMetadataActionHandler> actionHandlers, IConsole console)
-        : base(actionHandlers, console, "Metadata") {
-    }
 }

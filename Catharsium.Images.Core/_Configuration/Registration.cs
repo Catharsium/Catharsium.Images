@@ -14,6 +14,6 @@ public static class Registration
         return services.AddSingleton<CoreSettings, CoreSettings>(provider => configuration)
             .AddFilesIoUtilities(config)
 
-            .AddScoped<IMetadataRetriever, CatharsiumMetadataRetriever>();
+            .AddScoped<IMetadataRetriever, LightroomMetadataRetriever>();
     }
 }

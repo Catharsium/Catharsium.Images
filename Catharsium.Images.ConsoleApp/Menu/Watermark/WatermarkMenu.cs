@@ -2,11 +2,9 @@
 using Catharsium.Util.IO.Console.Menu.Base;
 using Catharsium.Watermarker.Interfaces.Menu;
 
-namespace Catharsium.Watermarker.Menu.Apply;
+namespace Catharsium.Images.ConsoleApp.Menu.Watermark;
 
-public class WatermarkMenu : BaseMenuActionHandler<IWatermarkActionHandler>
+public class WatermarkMenu(IEnumerable<IWatermarkActionHandler> actionHandlers, IConsole console) 
+    : BaseMenuActionHandler<IWatermarkActionHandler>(actionHandlers, console, "Watermark")
 {
-    public WatermarkMenu(IEnumerable<IWatermarkActionHandler> actionHandlers, IConsole console)
-        : base(actionHandlers, console, "Watermark") {
-    }
 }

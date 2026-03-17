@@ -12,7 +12,8 @@ namespace Catharsium.Images.Watermarking._Configuration;
 
 public static class Registration
 {
-    public static IServiceCollection AddImagesWatermarking(this IServiceCollection services, IConfiguration config) {
+    public static IServiceCollection AddImagesWatermarking(this IServiceCollection services, IConfiguration config)
+    {
         var configuration = config.Load<WatermarkingSettings>();
         return services.AddSingleton<WatermarkingSettings, WatermarkingSettings>(provider => configuration)
             .AddFilesIoUtilities(config)

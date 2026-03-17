@@ -1,11 +1,11 @@
 ﻿using Catharsium.Images.ConsoleApp.Interfaces.Menu;
 using Catharsium.Images.ConsoleApp.Menu.Metadata;
+using Catharsium.Images.ConsoleApp.Menu.Watermark;
 using Catharsium.Images.Watermarking._Configuration;
 using Catharsium.Util.Configuration.Extensions;
 using Catharsium.Util.IO.Console._Configuration;
 using Catharsium.Util.IO.Console.Menu.Interfaces;
 using Catharsium.Watermarker.Interfaces.Menu;
-using Catharsium.Watermarker.Menu.Apply;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

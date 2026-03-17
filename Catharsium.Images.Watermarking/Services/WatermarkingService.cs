@@ -38,34 +38,7 @@ public abstract class WatermarkingService<T> : IWatermarkingService<T>
     }
 
 
-    //[SuppressMessage("Interoperability", "CA1416:Validate p}atform compatibility", Justification = "<Pending>")]
-    //public void ApplyTo<T>(IFile sourceImage, IFile targetImage, bool isGrayScale, IEnumerable<WatermarkRequest<T>> watermarksLandscape, IEnumerable<WatermarkRequest<T>> watermarksPortrait) {
-    //    this.InitLimits();
-    //    Bitmap outputImage;
-    //    using(var stream = sourceImage.OpenRead()) {
-    //        using var image = new Bitmap(stream);
-    //        outputImage = (Bitmap)image.Clone();
-    //    }
-
-    //    var watermarks = watermarksLandscape;
-    //    if(outputImage.Width < outputImage.Height && watermarksPortrait != null && watermarksPortrait.Any()) {
-    //        watermarks = watermarksPortrait;
-    //    }
-
-    //    foreach(var watermark in watermarks) {
-    //        outputImage = this.ApplyTo(outputImage, watermark, isGrayScale);
-    //    }
-
-    //    outputImage.Save(targetImage.FullName, ImageFormat.Jpeg);
-    //}
-
-
-    public void ApplyTo<T>(
-    IFile sourceImage,
-    IFile targetImage,
-    bool isGrayScale,
-    IEnumerable<WatermarkRequest<T>> watermarksLandscape,
-    IEnumerable<WatermarkRequest<T>> watermarksPortrait)
+    public void ApplyTo(IFile sourceImage, IFile targetImage, bool isGrayScale, IEnumerable<WatermarkRequest<T>> watermarksLandscape, IEnumerable<WatermarkRequest<T>> watermarksPortrait)
     {
         this.InitLimits();
 
@@ -93,5 +66,6 @@ public abstract class WatermarkingService<T> : IWatermarkingService<T>
         data.SaveTo(outputStream);
     }
 
-    public abstract SKBitmap ApplyTo<T>(SKBitmap picture, WatermarkRequest<T> request, bool useGrayScale);
+
+    public abstract SKBitmap ApplyTo(SKBitmap picture, WatermarkRequest<T> request, bool useGrayScale);
 }

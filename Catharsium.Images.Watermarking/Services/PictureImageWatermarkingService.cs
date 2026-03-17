@@ -8,12 +8,11 @@ namespace Catharsium.Images.Watermarking.Services;
 
 public class PictureImageWatermarkingService(IConsole console) : WatermarkingService<IFile>
 {
-    public override SKBitmap ApplyTo<T>(SKBitmap picture, WatermarkRequest<T> request, bool useGrayScale)
+    public override SKBitmap ApplyTo(SKBitmap picture, WatermarkRequest<IFile> request, bool useGrayScale)
     {
-        var file = request.Image as IFile;
-        console.WriteLine($"\tApplying {file.Name}: {request}");
+        console.WriteLine($"\tApplying {request.Image.Name}: {request}");
 
-        using var watermarkStream = file.OpenRead();
+        using var watermarkStream = request.Image.OpenRead();
         using var watermarkBitmap = SKBitmap.Decode(watermarkStream);
 
         var watermarkWidth = (int)(picture.Width * request.Scale);
@@ -63,15 +62,15 @@ public class PictureImageWatermarkingService(IConsole console) : WatermarkingSer
 
             imagePaint = new SKPaint
             {
-                ColorFilter = SKColorFilter.CreateColorMatrix(matrix),     
-                
+                ColorFilter = SKColorFilter.CreateColorMatrix(matrix),
+
                 FilterQuality = SKFilterQuality.High
             };
         }
         else
         {
             imagePaint = new SKPaint
-            { 
+            {
                 FilterQuality = SKFilterQuality.High
             };
         }
@@ -87,11 +86,8 @@ public class PictureImageWatermarkingService(IConsole console) : WatermarkingSer
 
     private void AddWatermarkBackground<T>(SKBitmap picture, WatermarkRequest<T> request, int watermarkWidth, int watermarkHeight, int x, SKCanvas canvas)
     {
-        var backgroundY = picture.Height - watermarkHeight -
-                          (int)Math.Round(request.BackgroundMarginY.Value * watermarkHeight);
-
-        var backgroundWidth = watermarkWidth + x +
-                              (int)Math.Round(request.BackgroundMarginX.Value * watermarkWidth);
+        var backgroundY = picture.Height - watermarkHeight - (int)Math.Round(request.BackgroundMarginY.Value * watermarkHeight);
+        var backgroundWidth = watermarkWidth + x + (int)Math.Round(request.BackgroundMarginX.Value * watermarkWidth);
 
         console.WriteLine($"\t    - Adding background 0, {backgroundY}, {backgroundWidth}, {picture.Height}");
 
@@ -101,8 +97,6 @@ public class PictureImageWatermarkingService(IConsole console) : WatermarkingSer
             IsAntialias = true
         };
 
-        canvas.DrawRect(
-            new SKRect(0, backgroundY, backgroundWidth, picture.Height),
-            paint);
+        canvas.DrawRect(new SKRect(0, backgroundY, backgroundWidth, picture.Height), paint);
     }
 }

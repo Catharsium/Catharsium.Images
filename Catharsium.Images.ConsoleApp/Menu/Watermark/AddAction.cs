@@ -1,20 +1,12 @@
 ﻿using Catharsium.Images.Watermarking.Interfaces;
 using Catharsium.Watermarker.Interfaces.Menu;
 
-namespace Catharsium.Watermarker.Menu.Apply;
+namespace Catharsium.Images.ConsoleApp.Menu.Watermark;
 
-public class AddAction : IWatermarkActionHandler
+public class AddAction(IWatermarkApplicator watermarkApplicator) 
+    : IWatermarkActionHandler
 {
-    private readonly IWatermarkApplicator watermarkApplicator;
-
     public string MenuName => "Add";
-
-
-
-    public AddAction(IWatermarkApplicator watermarkApplicator) {
-        this.watermarkApplicator = watermarkApplicator;
-    }
-
 
     public async Task Run() {
     }

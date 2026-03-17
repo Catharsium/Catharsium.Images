@@ -1,0 +1,10 @@
+﻿[*.cs]
+
+# IDE2001: Embedded statements must be on their own line
+dotnet_diagnostic.IDE2001.severity = none
+
+# MSTEST0016: Test class should have test method
+dotnet_diagnostic.MSTEST0016.severity = none
+
+# IDE0003: Remove qualification
+dotnet_diagnostic.IDE0003.severity = none
