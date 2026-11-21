@@ -1,4 +1,6 @@
-﻿using Catharsium.Images.ConsoleApp.Interfaces.Menu;
+﻿using Catharsium.Images.ConsoleApp.Interfaces;
+using Catharsium.Images.ConsoleApp.Interfaces.Menu;
+using Catharsium.Images.ConsoleApp.Services;
 using Catharsium.Images.ConsoleApp.Menu.Metadata;
 using Catharsium.Images.ConsoleApp.Menu.Watermark;
 using Catharsium.Images.Watermarking._Configuration;
@@ -19,6 +21,8 @@ public static class Registration
             .AddConsoleIoUtilities(config)
 
             .AddImagesWatermarking(config)
+
+            .AddScoped<IInputFileResolver, InputFileResolver>()
 
             .AddScoped<IMenuActionHandler, WatermarkMenu>()
             .AddScoped<IWatermarkActionHandler, AddAction>()

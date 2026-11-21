@@ -69,7 +69,7 @@ public class WatermarkApplicator(
 
     private WatermarkRequest<IFile> MapToImageWatermark(Watermark w) {
         return new WatermarkRequest<IFile> {
-            Image = fileFactory.CreateFile(w.Image),
+            Image = fileFactory.CreateFile(settings.ResolveImagePath(w.Image)),
             Scale = w.Scale,
             Anchor = w.Anchor,
             Flow = w.Flow,
