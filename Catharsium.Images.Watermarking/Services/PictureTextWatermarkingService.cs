@@ -46,7 +46,7 @@ public class PictureTextWatermarkingService : WatermarkingService<string>
         var scale = watermarkHeight / bounds.Height;
         font.Size *= (float)scale;
 
-        canvas.DrawText(request.Image, x, y + watermarkHeight, font, paint);
+        canvas.DrawText(request.Image, x, y + watermarkHeight, SKTextAlign.Left, font, paint);
 
         canvas.Flush();
 

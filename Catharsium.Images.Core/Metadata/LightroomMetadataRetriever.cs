@@ -40,9 +40,17 @@ public class LightroomMetadataRetriever : IMetadataRetriever
             return result;
         }
 
-        var xmpDirectory = xmpDirectories.First();
-        result.Rating = xmpDirectory?.XmpMeta?.GetPropertyInteger(XmpMetadata.AdobeNamespace, XmpMetadata.XmpRating);
-        result.Label = xmpDirectory?.XmpMeta?.GetPropertyString(XmpMetadata.AdobeNamespace, XmpMetadata.XmpLabel)?.ToLower();
+        var xmpMeta = xmpDirectories.First().XmpMeta;
+        if(xmpMeta == null) {
+            return result;
+        }
+
+        // GetPropertyInteger throws when the property is missing, e.g. for an unrated photo.
+        if(xmpMeta.DoesPropertyExist(XmpMetadata.AdobeNamespace, XmpMetadata.XmpRating)) {
+            result.Rating = xmpMeta.GetPropertyInteger(XmpMetadata.AdobeNamespace, XmpMetadata.XmpRating);
+        }
+
+        result.Label = xmpMeta.GetPropertyString(XmpMetadata.AdobeNamespace, XmpMetadata.XmpLabel)?.ToLower();
 
         return result;
     }
