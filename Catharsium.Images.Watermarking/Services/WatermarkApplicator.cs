@@ -69,7 +69,7 @@ public class WatermarkApplicator(
 
     private WatermarkRequest<IFile> MapToImageWatermark(Watermark w) {
         return new WatermarkRequest<IFile> {
-            Image = fileFactory.CreateFile(w.Image),
+            Image = fileFactory.CreateFile(settings.ResolveImagePath(w.Image)),
             Scale = w.Scale,
             Anchor = w.Anchor,
             Flow = w.Flow,
@@ -82,7 +82,9 @@ public class WatermarkApplicator(
 
 
     private static (IDirectory, IDirectory, IDirectory, IDirectory, IDirectory, IDirectory, IDirectory, IDirectory, IDirectory) CreateSubfolders(IFileFactory fileFactory, IFileNameService fileNameService, IFile sourceFile, string title, DateTimeOffset? date) {
-        var mainFolder = fileFactory.CreateDirectory(Path.Combine(sourceFile.Directory.FullName, $"{date.Value:yyyy-MM-dd}, {fileNameService.SuggestValidFileName(title)}"));
+        // Photos without a capture date fall back to the file's last write time (usually the export time).
+        var folderDate = date?.ToString("yyyy-MM-dd") ?? sourceFile.LastWriteTime.ToString("yyyy-MM-dd");
+        var mainFolder = fileFactory.CreateDirectory(Path.Combine(sourceFile.Directory.FullName, $"{folderDate}, {fileNameService.SuggestValidFileName(title)}"));
         if(!mainFolder.Exists) {
             mainFolder.Create();
         }
