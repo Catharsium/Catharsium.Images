@@ -12,4 +12,9 @@
     <PackageReference Include="MetadataExtractor" Version="2.9.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Catharsium.Images.Core.Tests" />
+    <InternalsVisibleTo Include="Catharsium.Images.Watermarking.Tests" />
+  </ItemGroup>
+
 </Project>
