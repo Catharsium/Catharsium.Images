@@ -62,22 +62,20 @@ public class PictureImageWatermarkingService(IConsole console) : WatermarkingSer
 
             imagePaint = new SKPaint
             {
-                ColorFilter = SKColorFilter.CreateColorMatrix(matrix),
-
-                FilterQuality = SKFilterQuality.High
+                ColorFilter = SKColorFilter.CreateColorMatrix(matrix)
             };
         }
         else
         {
-            imagePaint = new SKPaint
-            {
-                FilterQuality = SKFilterQuality.High
-            };
+            imagePaint = new SKPaint();
         }
 
         console.WriteLine($"\t    - Drawing watermark {x}, {y}, {watermarkWidth}, {watermarkHeight}");
         var destRect = new SKRect(x, y, x + watermarkWidth, y + watermarkHeight);
-        canvas.DrawBitmap(watermarkBitmap, destRect, imagePaint);
+        // SkiaSharp 4 removed SKFilterQuality; High quality maps to cubic (Mitchell) sampling.
+        var sampling = new SKSamplingOptions(SKCubicResampler.Mitchell);
+        canvas.DrawBitmap(watermarkBitmap, destRect, sampling, imagePaint);
+        imagePaint.Dispose();
         canvas.Flush();
 
         return picture;
